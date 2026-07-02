@@ -80,6 +80,9 @@ class ProductsApi
         'productsGetAvailableProductTags' => [
             'application/json',
         ],
+        'productsGetPersonalizationParameters' => [
+            'application/json',
+        ],
         'productsGetPersonalizationWorkflow' => [
             'application/json',
         ],
@@ -96,9 +99,6 @@ class ProductsApi
             'application/json',
         ],
         'productsGetProductSummary' => [
-            'application/json',
-        ],
-        'productsGetProductSummary_0' => [
             'application/json',
         ],
         'productsGetProductVariant' => [
@@ -1174,6 +1174,431 @@ class ProductsApi
         ) ?? []);
 
 
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('X-API-Key');
+        if ($apiKey !== null) {
+            $headers['X-API-Key'] = $apiKey;
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Authorization');
+        if ($apiKey !== null) {
+            $headers['Authorization'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation productsGetPersonalizationParameters
+     *
+     * Returns a product personalization parameters by product identifier.
+     *
+     * @param  int $id Product identifier. (required)
+     * @param  int $product_version_id Product version identifier. (optional)
+     * @param  int $tenant_id Tenant identifier. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
+     *
+     * @throws \Aurigma\Storefront\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Aurigma\Storefront\Model\PersonalizationParametersDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto
+     */
+    public function productsGetPersonalizationParameters($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    {
+        list($response) = $this->productsGetPersonalizationParametersWithHttpInfo($id, $product_version_id, $tenant_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation productsGetPersonalizationParametersWithHttpInfo
+     *
+     * Returns a product personalization parameters by product identifier.
+     *
+     * @param  int $id Product identifier. (required)
+     * @param  int $product_version_id Product version identifier. (optional)
+     * @param  int $tenant_id Tenant identifier. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
+     *
+     * @throws \Aurigma\Storefront\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Aurigma\Storefront\Model\PersonalizationParametersDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function productsGetPersonalizationParametersWithHttpInfo($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    {
+        $request = $this->productsGetPersonalizationParametersRequest($id, $product_version_id, $tenant_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\Aurigma\Storefront\Model\PersonalizationParametersDto' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\Aurigma\Storefront\Model\PersonalizationParametersDto' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aurigma\Storefront\Model\PersonalizationParametersDto', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 409:
+                    if ('\Aurigma\Storefront\Model\GeneralConflictDto' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\Aurigma\Storefront\Model\GeneralConflictDto' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aurigma\Storefront\Model\GeneralConflictDto', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\Aurigma\Storefront\Model\PersonalizationParametersDto';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+                if ($returnType !== 'string') {
+                    try {
+                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    } catch (\JsonException $exception) {
+                        throw new ApiException(
+                            sprintf(
+                                'Error JSON decoding server response (%s)',
+                                $request->getUri()
+                            ),
+                            $statusCode,
+                            $response->getHeaders(),
+                            $content
+                        );
+                    }
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aurigma\Storefront\Model\PersonalizationParametersDto',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aurigma\Storefront\Model\GeneralConflictDto',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation productsGetPersonalizationParametersAsync
+     *
+     * Returns a product personalization parameters by product identifier.
+     *
+     * @param  int $id Product identifier. (required)
+     * @param  int $product_version_id Product version identifier. (optional)
+     * @param  int $tenant_id Tenant identifier. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function productsGetPersonalizationParametersAsync($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    {
+        return $this->productsGetPersonalizationParametersAsyncWithHttpInfo($id, $product_version_id, $tenant_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation productsGetPersonalizationParametersAsyncWithHttpInfo
+     *
+     * Returns a product personalization parameters by product identifier.
+     *
+     * @param  int $id Product identifier. (required)
+     * @param  int $product_version_id Product version identifier. (optional)
+     * @param  int $tenant_id Tenant identifier. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function productsGetPersonalizationParametersAsyncWithHttpInfo($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    {
+        $returnType = '\Aurigma\Storefront\Model\PersonalizationParametersDto';
+        $request = $this->productsGetPersonalizationParametersRequest($id, $product_version_id, $tenant_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'productsGetPersonalizationParameters'
+     *
+     * @param  int $id Product identifier. (required)
+     * @param  int $product_version_id Product version identifier. (optional)
+     * @param  int $tenant_id Tenant identifier. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function productsGetPersonalizationParametersRequest($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling productsGetPersonalizationParameters'
+            );
+        }
+
+
+
+
+        $resourcePath = '/api/storefront/v1/products/{id}/personalization-parameters';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $product_version_id,
+            'productVersionId', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $tenant_id,
+            'tenantId', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -3485,431 +3910,29 @@ class ProductsApi
     /**
      * Operation productsGetProductSummary
      *
-     * Returns a product personalization parameters by product identifier.
+     * Returns a product summary by product identifier.
      *
      * @param  int $id Product identifier. (required)
      * @param  int $product_version_id Product version identifier. (optional)
+     * @param  int $product_link_id Product link identifier. (optional)
+     * @param  int $product_variant_id Product variant identifier. (optional)
+     * @param  string $sku Product variant SKU. (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
      *
      * @throws \Aurigma\Storefront\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Aurigma\Storefront\Model\PersonalizationParametersDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto
+     * @return \Aurigma\Storefront\Model\ProductSummaryDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto
      */
-    public function productsGetProductSummary($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
+    public function productsGetProductSummary($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
     {
-        list($response) = $this->productsGetProductSummaryWithHttpInfo($id, $product_version_id, $tenant_id, $contentType);
+        list($response) = $this->productsGetProductSummaryWithHttpInfo($id, $product_version_id, $product_link_id, $product_variant_id, $sku, $tenant_id, $contentType);
         return $response;
     }
 
     /**
      * Operation productsGetProductSummaryWithHttpInfo
      *
-     * Returns a product personalization parameters by product identifier.
-     *
-     * @param  int $id Product identifier. (required)
-     * @param  int $product_version_id Product version identifier. (optional)
-     * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
-     *
-     * @throws \Aurigma\Storefront\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Aurigma\Storefront\Model\PersonalizationParametersDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function productsGetProductSummaryWithHttpInfo($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
-    {
-        $request = $this->productsGetProductSummaryRequest($id, $product_version_id, $tenant_id, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            switch($statusCode) {
-                case 200:
-                    if ('\Aurigma\Storefront\Model\PersonalizationParametersDto' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\Aurigma\Storefront\Model\PersonalizationParametersDto' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\Aurigma\Storefront\Model\PersonalizationParametersDto', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                case 404:
-                    if ('\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                case 409:
-                    if ('\Aurigma\Storefront\Model\GeneralConflictDto' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\Aurigma\Storefront\Model\GeneralConflictDto' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\Aurigma\Storefront\Model\GeneralConflictDto', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-            }
-
-            $returnType = '\Aurigma\Storefront\Model\PersonalizationParametersDto';
-            if ($returnType === '\SplFileObject') {
-                $content = $response->getBody(); //stream goes to serializer
-            } else {
-                $content = (string) $response->getBody();
-                if ($returnType !== 'string') {
-                    try {
-                        $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                    } catch (\JsonException $exception) {
-                        throw new ApiException(
-                            sprintf(
-                                'Error JSON decoding server response (%s)',
-                                $request->getUri()
-                            ),
-                            $statusCode,
-                            $response->getHeaders(),
-                            $content
-                        );
-                    }
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Aurigma\Storefront\Model\PersonalizationParametersDto',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Aurigma\Storefront\Model\GeneralConflictDto',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation productsGetProductSummaryAsync
-     *
-     * Returns a product personalization parameters by product identifier.
-     *
-     * @param  int $id Product identifier. (required)
-     * @param  int $product_version_id Product version identifier. (optional)
-     * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function productsGetProductSummaryAsync($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
-    {
-        return $this->productsGetProductSummaryAsyncWithHttpInfo($id, $product_version_id, $tenant_id, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation productsGetProductSummaryAsyncWithHttpInfo
-     *
-     * Returns a product personalization parameters by product identifier.
-     *
-     * @param  int $id Product identifier. (required)
-     * @param  int $product_version_id Product version identifier. (optional)
-     * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function productsGetProductSummaryAsyncWithHttpInfo($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
-    {
-        $returnType = '\Aurigma\Storefront\Model\PersonalizationParametersDto';
-        $request = $this->productsGetProductSummaryRequest($id, $product_version_id, $tenant_id, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'productsGetProductSummary'
-     *
-     * @param  int $id Product identifier. (required)
-     * @param  int $product_version_id Product version identifier. (optional)
-     * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function productsGetProductSummaryRequest($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
-    {
-
-        // verify the required parameter 'id' is set
-        if ($id === null || (is_array($id) && count($id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling productsGetProductSummary'
-            );
-        }
-
-
-
-
-        $resourcePath = '/api/storefront/v1/products/{id}/personalization-parameters';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $product_version_id,
-            'productVersionId', // param base name
-            'integer', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $tenant_id,
-            'tenantId', // param base name
-            'integer', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
-        // path params
-        if ($id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires API key authentication
-        $apiKey = $this->config->getApiKeyWithPrefix('X-API-Key');
-        if ($apiKey !== null) {
-            $headers['X-API-Key'] = $apiKey;
-        }
-        // this endpoint requires OAuth (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-        // this endpoint requires OAuth (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-        // this endpoint requires API key authentication
-        $apiKey = $this->config->getApiKeyWithPrefix('Authorization');
-        if ($apiKey !== null) {
-            $headers['Authorization'] = $apiKey;
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation productsGetProductSummary_0
-     *
      * Returns a product summary by product identifier.
      *
      * @param  int $id Product identifier. (required)
@@ -3918,38 +3941,15 @@ class ProductsApi
      * @param  int $product_variant_id Product variant identifier. (optional)
      * @param  string $sku Product variant SKU. (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary_0'] to see the possible values for this operation
-     *
-     * @throws \Aurigma\Storefront\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Aurigma\Storefront\Model\ProductSummaryDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto
-     */
-    public function productsGetProductSummary_0($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary_0'][0])
-    {
-        list($response) = $this->productsGetProductSummary_0WithHttpInfo($id, $product_version_id, $product_link_id, $product_variant_id, $sku, $tenant_id, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation productsGetProductSummary_0WithHttpInfo
-     *
-     * Returns a product summary by product identifier.
-     *
-     * @param  int $id Product identifier. (required)
-     * @param  int $product_version_id Product version identifier. (optional)
-     * @param  int $product_link_id Product link identifier. (optional)
-     * @param  int $product_variant_id Product variant identifier. (optional)
-     * @param  string $sku Product variant SKU. (optional)
-     * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary_0'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
      *
      * @throws \Aurigma\Storefront\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Aurigma\Storefront\Model\ProductSummaryDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto, HTTP status code, HTTP response headers (array of strings)
      */
-    public function productsGetProductSummary_0WithHttpInfo($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary_0'][0])
+    public function productsGetProductSummaryWithHttpInfo($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
     {
-        $request = $this->productsGetProductSummary_0Request($id, $product_version_id, $product_link_id, $product_variant_id, $sku, $tenant_id, $contentType);
+        $request = $this->productsGetProductSummaryRequest($id, $product_version_id, $product_link_id, $product_variant_id, $sku, $tenant_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4130,7 +4130,7 @@ class ProductsApi
     }
 
     /**
-     * Operation productsGetProductSummary_0Async
+     * Operation productsGetProductSummaryAsync
      *
      * Returns a product summary by product identifier.
      *
@@ -4140,14 +4140,14 @@ class ProductsApi
      * @param  int $product_variant_id Product variant identifier. (optional)
      * @param  string $sku Product variant SKU. (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary_0'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function productsGetProductSummary_0Async($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary_0'][0])
+    public function productsGetProductSummaryAsync($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
     {
-        return $this->productsGetProductSummary_0AsyncWithHttpInfo($id, $product_version_id, $product_link_id, $product_variant_id, $sku, $tenant_id, $contentType)
+        return $this->productsGetProductSummaryAsyncWithHttpInfo($id, $product_version_id, $product_link_id, $product_variant_id, $sku, $tenant_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4156,7 +4156,7 @@ class ProductsApi
     }
 
     /**
-     * Operation productsGetProductSummary_0AsyncWithHttpInfo
+     * Operation productsGetProductSummaryAsyncWithHttpInfo
      *
      * Returns a product summary by product identifier.
      *
@@ -4166,15 +4166,15 @@ class ProductsApi
      * @param  int $product_variant_id Product variant identifier. (optional)
      * @param  string $sku Product variant SKU. (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary_0'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function productsGetProductSummary_0AsyncWithHttpInfo($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary_0'][0])
+    public function productsGetProductSummaryAsyncWithHttpInfo($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
     {
         $returnType = '\Aurigma\Storefront\Model\ProductSummaryDto';
-        $request = $this->productsGetProductSummary_0Request($id, $product_version_id, $product_link_id, $product_variant_id, $sku, $tenant_id, $contentType);
+        $request = $this->productsGetProductSummaryRequest($id, $product_version_id, $product_link_id, $product_variant_id, $sku, $tenant_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4213,7 +4213,7 @@ class ProductsApi
     }
 
     /**
-     * Create request for operation 'productsGetProductSummary_0'
+     * Create request for operation 'productsGetProductSummary'
      *
      * @param  int $id Product identifier. (required)
      * @param  int $product_version_id Product version identifier. (optional)
@@ -4221,18 +4221,18 @@ class ProductsApi
      * @param  int $product_variant_id Product variant identifier. (optional)
      * @param  string $sku Product variant SKU. (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary_0'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetProductSummary'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function productsGetProductSummary_0Request($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary_0'][0])
+    public function productsGetProductSummaryRequest($id, $product_version_id = null, $product_link_id = null, $product_variant_id = null, $sku = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetProductSummary'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling productsGetProductSummary_0'
+                'Missing the required parameter $id when calling productsGetProductSummary'
             );
         }
 
