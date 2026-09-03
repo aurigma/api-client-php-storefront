@@ -583,7 +583,7 @@ try {
 ## `productReferencesGetPersonalizationParameters()`
 
 ```php
-productReferencesGetPersonalizationParameters($reference, $storefront_id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
+productReferencesGetPersonalizationParameters($reference, $storefront_id, $design_id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
 ```
 
 Returns a personalization parameters by the storefront product reference.
@@ -620,10 +620,11 @@ $apiInstance = new Aurigma\Storefront\Api\ProductReferencesApi(
 );
 $reference = 'reference_example'; // string | Product reference - external reference to Customer's Canvas product, e.g online store product identifier.
 $storefront_id = 56; // int | Storefront identifier.
+$design_id = 'design_id_example'; // string | Design identifier (for PIM products with design-specific workflows).
 $tenant_id = 56; // int | Tenant identifier.
 
 try {
-    $result = $apiInstance->productReferencesGetPersonalizationParameters($reference, $storefront_id, $tenant_id);
+    $result = $apiInstance->productReferencesGetPersonalizationParameters($reference, $storefront_id, $design_id, $tenant_id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ProductReferencesApi->productReferencesGetPersonalizationParameters: ', $e->getMessage(), PHP_EOL;
@@ -636,6 +637,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **reference** | **string**| Product reference - external reference to Customer&#39;s Canvas product, e.g online store product identifier. | |
 | **storefront_id** | **int**| Storefront identifier. | |
+| **design_id** | **string**| Design identifier (for PIM products with design-specific workflows). | [optional] |
 | **tenant_id** | **int**| Tenant identifier. | [optional] |
 
 ### Return type

@@ -254,7 +254,7 @@ try {
 ## `productsGetPersonalizationParameters()`
 
 ```php
-productsGetPersonalizationParameters($id, $product_version_id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
+productsGetPersonalizationParameters($id, $product_version_id, $design_id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
 ```
 
 Returns a product personalization parameters by product identifier.
@@ -291,10 +291,11 @@ $apiInstance = new Aurigma\Storefront\Api\ProductsApi(
 );
 $id = 56; // int | Product identifier.
 $product_version_id = 56; // int | Product version identifier.
+$design_id = 'design_id_example'; // string | Design identifier (for PIM products with design-specific workflows).
 $tenant_id = 56; // int | Tenant identifier.
 
 try {
-    $result = $apiInstance->productsGetPersonalizationParameters($id, $product_version_id, $tenant_id);
+    $result = $apiInstance->productsGetPersonalizationParameters($id, $product_version_id, $design_id, $tenant_id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ProductsApi->productsGetPersonalizationParameters: ', $e->getMessage(), PHP_EOL;
@@ -307,6 +308,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **id** | **int**| Product identifier. | |
 | **product_version_id** | **int**| Product version identifier. | [optional] |
+| **design_id** | **string**| Design identifier (for PIM products with design-specific workflows). | [optional] |
 | **tenant_id** | **int**| Tenant identifier. | [optional] |
 
 ### Return type

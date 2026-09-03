@@ -1254,6 +1254,7 @@ class ProductsApi
      *
      * @param  int $id Product identifier. (required)
      * @param  int $product_version_id Product version identifier. (optional)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
      *
@@ -1261,9 +1262,9 @@ class ProductsApi
      * @throws \InvalidArgumentException
      * @return \Aurigma\Storefront\Model\PersonalizationParametersDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto
      */
-    public function productsGetPersonalizationParameters($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    public function productsGetPersonalizationParameters($id, $product_version_id = null, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
     {
-        list($response) = $this->productsGetPersonalizationParametersWithHttpInfo($id, $product_version_id, $tenant_id, $contentType);
+        list($response) = $this->productsGetPersonalizationParametersWithHttpInfo($id, $product_version_id, $design_id, $tenant_id, $contentType);
         return $response;
     }
 
@@ -1274,6 +1275,7 @@ class ProductsApi
      *
      * @param  int $id Product identifier. (required)
      * @param  int $product_version_id Product version identifier. (optional)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
      *
@@ -1281,9 +1283,9 @@ class ProductsApi
      * @throws \InvalidArgumentException
      * @return array of \Aurigma\Storefront\Model\PersonalizationParametersDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto, HTTP status code, HTTP response headers (array of strings)
      */
-    public function productsGetPersonalizationParametersWithHttpInfo($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    public function productsGetPersonalizationParametersWithHttpInfo($id, $product_version_id = null, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
     {
-        $request = $this->productsGetPersonalizationParametersRequest($id, $product_version_id, $tenant_id, $contentType);
+        $request = $this->productsGetPersonalizationParametersRequest($id, $product_version_id, $design_id, $tenant_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1470,15 +1472,16 @@ class ProductsApi
      *
      * @param  int $id Product identifier. (required)
      * @param  int $product_version_id Product version identifier. (optional)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function productsGetPersonalizationParametersAsync($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    public function productsGetPersonalizationParametersAsync($id, $product_version_id = null, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
     {
-        return $this->productsGetPersonalizationParametersAsyncWithHttpInfo($id, $product_version_id, $tenant_id, $contentType)
+        return $this->productsGetPersonalizationParametersAsyncWithHttpInfo($id, $product_version_id, $design_id, $tenant_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1493,16 +1496,17 @@ class ProductsApi
      *
      * @param  int $id Product identifier. (required)
      * @param  int $product_version_id Product version identifier. (optional)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function productsGetPersonalizationParametersAsyncWithHttpInfo($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    public function productsGetPersonalizationParametersAsyncWithHttpInfo($id, $product_version_id = null, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
     {
         $returnType = '\Aurigma\Storefront\Model\PersonalizationParametersDto';
-        $request = $this->productsGetPersonalizationParametersRequest($id, $product_version_id, $tenant_id, $contentType);
+        $request = $this->productsGetPersonalizationParametersRequest($id, $product_version_id, $design_id, $tenant_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1545,13 +1549,14 @@ class ProductsApi
      *
      * @param  int $id Product identifier. (required)
      * @param  int $product_version_id Product version identifier. (optional)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productsGetPersonalizationParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function productsGetPersonalizationParametersRequest($id, $product_version_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
+    public function productsGetPersonalizationParametersRequest($id, $product_version_id = null, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productsGetPersonalizationParameters'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -1560,6 +1565,7 @@ class ProductsApi
                 'Missing the required parameter $id when calling productsGetPersonalizationParameters'
             );
         }
+
 
 
 
@@ -1576,6 +1582,15 @@ class ProductsApi
             $product_version_id,
             'productVersionId', // param base name
             'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $design_id,
+            'designId', // param base name
+            'string', // openApiType
             'form', // style
             true, // explode
             false // required

@@ -3379,6 +3379,7 @@ class ProductReferencesApi
      *
      * @param  string $reference Product reference - external reference to Customer&#39;s Canvas product, e.g online store product identifier. (required)
      * @param  int $storefront_id Storefront identifier. (required)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productReferencesGetPersonalizationParameters'] to see the possible values for this operation
      *
@@ -3386,9 +3387,9 @@ class ProductReferencesApi
      * @throws \InvalidArgumentException
      * @return \Aurigma\Storefront\Model\PersonalizationParametersDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto
      */
-    public function productReferencesGetPersonalizationParameters($reference, $storefront_id, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
+    public function productReferencesGetPersonalizationParameters($reference, $storefront_id, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
     {
-        list($response) = $this->productReferencesGetPersonalizationParametersWithHttpInfo($reference, $storefront_id, $tenant_id, $contentType);
+        list($response) = $this->productReferencesGetPersonalizationParametersWithHttpInfo($reference, $storefront_id, $design_id, $tenant_id, $contentType);
         return $response;
     }
 
@@ -3399,6 +3400,7 @@ class ProductReferencesApi
      *
      * @param  string $reference Product reference - external reference to Customer&#39;s Canvas product, e.g online store product identifier. (required)
      * @param  int $storefront_id Storefront identifier. (required)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productReferencesGetPersonalizationParameters'] to see the possible values for this operation
      *
@@ -3406,9 +3408,9 @@ class ProductReferencesApi
      * @throws \InvalidArgumentException
      * @return array of \Aurigma\Storefront\Model\PersonalizationParametersDto|\Aurigma\Storefront\Model\MicrosoftAspNetCoreMvcProblemDetails|\Aurigma\Storefront\Model\GeneralConflictDto, HTTP status code, HTTP response headers (array of strings)
      */
-    public function productReferencesGetPersonalizationParametersWithHttpInfo($reference, $storefront_id, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
+    public function productReferencesGetPersonalizationParametersWithHttpInfo($reference, $storefront_id, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
     {
-        $request = $this->productReferencesGetPersonalizationParametersRequest($reference, $storefront_id, $tenant_id, $contentType);
+        $request = $this->productReferencesGetPersonalizationParametersRequest($reference, $storefront_id, $design_id, $tenant_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3595,15 +3597,16 @@ class ProductReferencesApi
      *
      * @param  string $reference Product reference - external reference to Customer&#39;s Canvas product, e.g online store product identifier. (required)
      * @param  int $storefront_id Storefront identifier. (required)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productReferencesGetPersonalizationParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function productReferencesGetPersonalizationParametersAsync($reference, $storefront_id, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
+    public function productReferencesGetPersonalizationParametersAsync($reference, $storefront_id, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
     {
-        return $this->productReferencesGetPersonalizationParametersAsyncWithHttpInfo($reference, $storefront_id, $tenant_id, $contentType)
+        return $this->productReferencesGetPersonalizationParametersAsyncWithHttpInfo($reference, $storefront_id, $design_id, $tenant_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3618,16 +3621,17 @@ class ProductReferencesApi
      *
      * @param  string $reference Product reference - external reference to Customer&#39;s Canvas product, e.g online store product identifier. (required)
      * @param  int $storefront_id Storefront identifier. (required)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productReferencesGetPersonalizationParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function productReferencesGetPersonalizationParametersAsyncWithHttpInfo($reference, $storefront_id, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
+    public function productReferencesGetPersonalizationParametersAsyncWithHttpInfo($reference, $storefront_id, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
     {
         $returnType = '\Aurigma\Storefront\Model\PersonalizationParametersDto';
-        $request = $this->productReferencesGetPersonalizationParametersRequest($reference, $storefront_id, $tenant_id, $contentType);
+        $request = $this->productReferencesGetPersonalizationParametersRequest($reference, $storefront_id, $design_id, $tenant_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3670,13 +3674,14 @@ class ProductReferencesApi
      *
      * @param  string $reference Product reference - external reference to Customer&#39;s Canvas product, e.g online store product identifier. (required)
      * @param  int $storefront_id Storefront identifier. (required)
+     * @param  string $design_id Design identifier (for PIM products with design-specific workflows). (optional)
      * @param  int $tenant_id Tenant identifier. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['productReferencesGetPersonalizationParameters'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function productReferencesGetPersonalizationParametersRequest($reference, $storefront_id, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
+    public function productReferencesGetPersonalizationParametersRequest($reference, $storefront_id, $design_id = null, $tenant_id = null, string $contentType = self::contentTypes['productReferencesGetPersonalizationParameters'][0])
     {
 
         // verify the required parameter 'reference' is set
@@ -3695,6 +3700,7 @@ class ProductReferencesApi
 
 
 
+
         $resourcePath = '/api/storefront/v1/product-references/{reference}/personalization-parameters';
         $formParams = [];
         $queryParams = [];
@@ -3710,6 +3716,15 @@ class ProductReferencesApi
             'form', // style
             true, // explode
             true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $design_id,
+            'designId', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
