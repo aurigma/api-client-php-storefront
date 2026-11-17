@@ -69,7 +69,8 @@ class PersonalizationParametersDto implements ModelInterface, ArrayAccess, \Json
         'simple_editor_url' => 'string',
         'workflow_elements_url' => 'string',
         'workflow_type' => '\Aurigma\Storefront\Model\WorkflowType',
-        'workflow_content' => 'string'
+        'workflow_content' => 'string',
+        'attributes' => '\Aurigma\Storefront\Model\PersonalizationAttributeDto[]'
     ];
 
     /**
@@ -91,7 +92,8 @@ class PersonalizationParametersDto implements ModelInterface, ArrayAccess, \Json
         'simple_editor_url' => null,
         'workflow_elements_url' => null,
         'workflow_type' => null,
-        'workflow_content' => null
+        'workflow_content' => null,
+        'attributes' => null
     ];
 
     /**
@@ -111,7 +113,8 @@ class PersonalizationParametersDto implements ModelInterface, ArrayAccess, \Json
         'simple_editor_url' => true,
         'workflow_elements_url' => true,
         'workflow_type' => false,
-        'workflow_content' => true
+        'workflow_content' => true,
+        'attributes' => true
     ];
 
     /**
@@ -211,7 +214,8 @@ class PersonalizationParametersDto implements ModelInterface, ArrayAccess, \Json
         'simple_editor_url' => 'simpleEditorUrl',
         'workflow_elements_url' => 'workflowElementsUrl',
         'workflow_type' => 'workflowType',
-        'workflow_content' => 'workflowContent'
+        'workflow_content' => 'workflowContent',
+        'attributes' => 'attributes'
     ];
 
     /**
@@ -231,7 +235,8 @@ class PersonalizationParametersDto implements ModelInterface, ArrayAccess, \Json
         'simple_editor_url' => 'setSimpleEditorUrl',
         'workflow_elements_url' => 'setWorkflowElementsUrl',
         'workflow_type' => 'setWorkflowType',
-        'workflow_content' => 'setWorkflowContent'
+        'workflow_content' => 'setWorkflowContent',
+        'attributes' => 'setAttributes'
     ];
 
     /**
@@ -251,7 +256,8 @@ class PersonalizationParametersDto implements ModelInterface, ArrayAccess, \Json
         'simple_editor_url' => 'getSimpleEditorUrl',
         'workflow_elements_url' => 'getWorkflowElementsUrl',
         'workflow_type' => 'getWorkflowType',
-        'workflow_content' => 'getWorkflowContent'
+        'workflow_content' => 'getWorkflowContent',
+        'attributes' => 'getAttributes'
     ];
 
     /**
@@ -323,6 +329,7 @@ class PersonalizationParametersDto implements ModelInterface, ArrayAccess, \Json
         $this->setIfExists('workflow_elements_url', $data ?? [], null);
         $this->setIfExists('workflow_type', $data ?? [], null);
         $this->setIfExists('workflow_content', $data ?? [], null);
+        $this->setIfExists('attributes', $data ?? [], null);
     }
 
     /**
@@ -757,6 +764,40 @@ class PersonalizationParametersDto implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['workflow_content'] = $workflow_content;
+
+        return $this;
+    }
+
+    /**
+     * Gets attributes
+     *
+     * @return \Aurigma\Storefront\Model\PersonalizationAttributeDto[]|null
+     */
+    public function getAttributes()
+    {
+        return $this->container['attributes'];
+    }
+
+    /**
+     * Sets attributes
+     *
+     * @param \Aurigma\Storefront\Model\PersonalizationAttributeDto[]|null $attributes List of product attributes.
+     *
+     * @return self
+     */
+    public function setAttributes($attributes)
+    {
+        if (is_null($attributes)) {
+            array_push($this->openAPINullablesSetToNull, 'attributes');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('attributes', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['attributes'] = $attributes;
 
         return $this;
     }

@@ -16,5 +16,6 @@ Name | Type | Description | Notes
 **image** | [**\Aurigma\Storefront\Model\ProductBundleDtoImage**](ProductBundleDtoImage.md) |  | [optional]
 **items** | [**\Aurigma\Storefront\Model\ProductBundleItemDto[]**](ProductBundleItemDto.md) | Product bundle items. | [optional]
 **resources** | [**\Aurigma\Storefront\Model\ProductBundleResourceDto[]**](ProductBundleResourceDto.md) | Product bundle resources. | [optional]
+**attributes** | [**\Aurigma\Storefront\Model\ProductBundleAttributeDto[]**](ProductBundleAttributeDto.md) | List of product bundle attributes. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

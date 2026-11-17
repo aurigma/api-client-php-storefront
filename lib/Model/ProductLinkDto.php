@@ -68,6 +68,7 @@ class ProductLinkDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'product_filter_id' => 'int',
         'image' => '\Aurigma\Storefront\Model\ProductLinkDtoImage',
         'resources' => '\Aurigma\Storefront\Model\ProductLinkResourceDto[]',
+        'attributes' => '\Aurigma\Storefront\Model\ProductLinkAttributeDto[]',
         'created' => '\DateTime',
         'last_modified' => '\DateTime',
         'product_filter_options' => '\Aurigma\Storefront\Model\ProductFilterOptionDto[]',
@@ -96,6 +97,7 @@ class ProductLinkDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'product_filter_id' => 'int32',
         'image' => null,
         'resources' => null,
+        'attributes' => null,
         'created' => 'date-time',
         'last_modified' => 'date-time',
         'product_filter_options' => null,
@@ -122,6 +124,7 @@ class ProductLinkDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'product_filter_id' => false,
         'image' => true,
         'resources' => true,
+        'attributes' => true,
         'created' => false,
         'last_modified' => true,
         'product_filter_options' => true,
@@ -228,6 +231,7 @@ class ProductLinkDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'product_filter_id' => 'productFilterId',
         'image' => 'image',
         'resources' => 'resources',
+        'attributes' => 'attributes',
         'created' => 'created',
         'last_modified' => 'lastModified',
         'product_filter_options' => 'productFilterOptions',
@@ -254,6 +258,7 @@ class ProductLinkDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'product_filter_id' => 'setProductFilterId',
         'image' => 'setImage',
         'resources' => 'setResources',
+        'attributes' => 'setAttributes',
         'created' => 'setCreated',
         'last_modified' => 'setLastModified',
         'product_filter_options' => 'setProductFilterOptions',
@@ -280,6 +285,7 @@ class ProductLinkDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'product_filter_id' => 'getProductFilterId',
         'image' => 'getImage',
         'resources' => 'getResources',
+        'attributes' => 'getAttributes',
         'created' => 'getCreated',
         'last_modified' => 'getLastModified',
         'product_filter_options' => 'getProductFilterOptions',
@@ -357,6 +363,7 @@ class ProductLinkDto implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('product_filter_id', $data ?? [], null);
         $this->setIfExists('image', $data ?? [], null);
         $this->setIfExists('resources', $data ?? [], null);
+        $this->setIfExists('attributes', $data ?? [], null);
         $this->setIfExists('created', $data ?? [], null);
         $this->setIfExists('last_modified', $data ?? [], null);
         $this->setIfExists('product_filter_options', $data ?? [], null);
@@ -703,6 +710,40 @@ class ProductLinkDto implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['resources'] = $resources;
+
+        return $this;
+    }
+
+    /**
+     * Gets attributes
+     *
+     * @return \Aurigma\Storefront\Model\ProductLinkAttributeDto[]|null
+     */
+    public function getAttributes()
+    {
+        return $this->container['attributes'];
+    }
+
+    /**
+     * Sets attributes
+     *
+     * @param \Aurigma\Storefront\Model\ProductLinkAttributeDto[]|null $attributes List of product link attributes.
+     *
+     * @return self
+     */
+    public function setAttributes($attributes)
+    {
+        if (is_null($attributes)) {
+            array_push($this->openAPINullablesSetToNull, 'attributes');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('attributes', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['attributes'] = $attributes;
 
         return $this;
     }

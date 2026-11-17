@@ -62,7 +62,7 @@ class ProductSpecificationDto implements ModelInterface, ArrayAccess, \JsonSeria
         'tenant_id' => 'int',
         'name' => 'string',
         'description' => 'string',
-        'product_attributes' => '\Aurigma\Storefront\Model\ProductAttributeDto[]',
+        'attributes' => '\Aurigma\Storefront\Model\ProductSpecificationAttributeDto[]',
         'created' => '\DateTime',
         'last_modified' => '\DateTime',
         'personalization_workflow_id' => 'int',
@@ -81,7 +81,7 @@ class ProductSpecificationDto implements ModelInterface, ArrayAccess, \JsonSeria
         'tenant_id' => 'int32',
         'name' => null,
         'description' => null,
-        'product_attributes' => null,
+        'attributes' => null,
         'created' => 'date-time',
         'last_modified' => 'date-time',
         'personalization_workflow_id' => 'int32',
@@ -98,7 +98,7 @@ class ProductSpecificationDto implements ModelInterface, ArrayAccess, \JsonSeria
         'tenant_id' => false,
         'name' => true,
         'description' => true,
-        'product_attributes' => true,
+        'attributes' => true,
         'created' => false,
         'last_modified' => true,
         'personalization_workflow_id' => false,
@@ -195,7 +195,7 @@ class ProductSpecificationDto implements ModelInterface, ArrayAccess, \JsonSeria
         'tenant_id' => 'tenantId',
         'name' => 'name',
         'description' => 'description',
-        'product_attributes' => 'productAttributes',
+        'attributes' => 'attributes',
         'created' => 'created',
         'last_modified' => 'lastModified',
         'personalization_workflow_id' => 'personalizationWorkflowId',
@@ -212,7 +212,7 @@ class ProductSpecificationDto implements ModelInterface, ArrayAccess, \JsonSeria
         'tenant_id' => 'setTenantId',
         'name' => 'setName',
         'description' => 'setDescription',
-        'product_attributes' => 'setProductAttributes',
+        'attributes' => 'setAttributes',
         'created' => 'setCreated',
         'last_modified' => 'setLastModified',
         'personalization_workflow_id' => 'setPersonalizationWorkflowId',
@@ -229,7 +229,7 @@ class ProductSpecificationDto implements ModelInterface, ArrayAccess, \JsonSeria
         'tenant_id' => 'getTenantId',
         'name' => 'getName',
         'description' => 'getDescription',
-        'product_attributes' => 'getProductAttributes',
+        'attributes' => 'getAttributes',
         'created' => 'getCreated',
         'last_modified' => 'getLastModified',
         'personalization_workflow_id' => 'getPersonalizationWorkflowId',
@@ -297,7 +297,7 @@ class ProductSpecificationDto implements ModelInterface, ArrayAccess, \JsonSeria
         $this->setIfExists('tenant_id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('product_attributes', $data ?? [], null);
+        $this->setIfExists('attributes', $data ?? [], null);
         $this->setIfExists('created', $data ?? [], null);
         $this->setIfExists('last_modified', $data ?? [], null);
         $this->setIfExists('personalization_workflow_id', $data ?? [], null);
@@ -469,35 +469,35 @@ class ProductSpecificationDto implements ModelInterface, ArrayAccess, \JsonSeria
     }
 
     /**
-     * Gets product_attributes
+     * Gets attributes
      *
-     * @return \Aurigma\Storefront\Model\ProductAttributeDto[]|null
+     * @return \Aurigma\Storefront\Model\ProductSpecificationAttributeDto[]|null
      */
-    public function getProductAttributes()
+    public function getAttributes()
     {
-        return $this->container['product_attributes'];
+        return $this->container['attributes'];
     }
 
     /**
-     * Sets product_attributes
+     * Sets attributes
      *
-     * @param \Aurigma\Storefront\Model\ProductAttributeDto[]|null $product_attributes List of product attributes.
+     * @param \Aurigma\Storefront\Model\ProductSpecificationAttributeDto[]|null $attributes List of product attributes.
      *
      * @return self
      */
-    public function setProductAttributes($product_attributes)
+    public function setAttributes($attributes)
     {
-        if (is_null($product_attributes)) {
-            array_push($this->openAPINullablesSetToNull, 'product_attributes');
+        if (is_null($attributes)) {
+            array_push($this->openAPINullablesSetToNull, 'attributes');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('product_attributes', $nullablesSetToNull);
+            $index = array_search('attributes', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        $this->container['product_attributes'] = $product_attributes;
+        $this->container['attributes'] = $attributes;
 
         return $this;
     }

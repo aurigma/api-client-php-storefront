@@ -5,9 +5,9 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**productBundlesGetAllProductBundles()**](ProductBundlesApi.md#productBundlesGetAllProductBundles) | **GET** /api/storefront/v1/product-bundles | Returns all product bundles, relevant to the specified query parameters. |
+| [**productBundlesGetPersonalizationParameters()**](ProductBundlesApi.md#productBundlesGetPersonalizationParameters) | **GET** /api/storefront/v1/product-bundles/{id}/personalization-parameters | Returns a product bundle personalization parameters by product identifier. |
 | [**productBundlesGetPersonalizationWorkflow()**](ProductBundlesApi.md#productBundlesGetPersonalizationWorkflow) | **GET** /api/storefront/v1/product-bundles/{id}/personalization-workflow | Returns a product bundle personalization workflow description by product bundle identifier. |
 | [**productBundlesGetProductBundle()**](ProductBundlesApi.md#productBundlesGetProductBundle) | **GET** /api/storefront/v1/product-bundles/{id} | Returns a product bundle by its identifier. |
-| [**productBundlesGetProductBundlePersonalizationParameters()**](ProductBundlesApi.md#productBundlesGetProductBundlePersonalizationParameters) | **GET** /api/storefront/v1/product-bundles/{id}/personalization-parameters | Returns a product bundle personalization parameters by product identifier. |
 | [**productBundlesGetProductSummary()**](ProductBundlesApi.md#productBundlesGetProductSummary) | **GET** /api/storefront/v1/product-bundles/{id}/summary | Returns a product bundle summary by product bundle identifier. |
 
 
@@ -78,6 +78,81 @@ try {
 ### Return type
 
 [**\Aurigma\Storefront\Model\PagedOfProductBundleDto**](../Model/PagedOfProductBundleDto.md)
+
+### Authorization
+
+[ApiKey](../../README.md#ApiKey), [OAuth2ClientCredentials](../../README.md#OAuth2ClientCredentials), [OAuth2Implicit](../../README.md#OAuth2Implicit), [Bearer](../../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `productBundlesGetPersonalizationParameters()`
+
+```php
+productBundlesGetPersonalizationParameters($id, $product_bundle_version_id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
+```
+
+Returns a product bundle personalization parameters by product identifier.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: ApiKey
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('X-API-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-Key', 'Bearer');
+
+// Configure OAuth2 access token for authorization: OAuth2ClientCredentials
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure OAuth2 access token for authorization: OAuth2Implicit
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: Bearer
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+
+
+$apiInstance = new Aurigma\Storefront\Api\ProductBundlesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$id = 56; // int | Product bundle identifier.
+$product_bundle_version_id = 56; // int | Product bundle version identifier.
+$tenant_id = 56; // int | Tenant identifier.
+
+try {
+    $result = $apiInstance->productBundlesGetPersonalizationParameters($id, $product_bundle_version_id, $tenant_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProductBundlesApi->productBundlesGetPersonalizationParameters: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **id** | **int**| Product bundle identifier. | |
+| **product_bundle_version_id** | **int**| Product bundle version identifier. | [optional] |
+| **tenant_id** | **int**| Tenant identifier. | [optional] |
+
+### Return type
+
+[**\Aurigma\Storefront\Model\PersonalizationParametersDto**](../Model/PersonalizationParametersDto.md)
 
 ### Authorization
 
@@ -228,81 +303,6 @@ try {
 ### Return type
 
 [**\Aurigma\Storefront\Model\ProductBundleDto**](../Model/ProductBundleDto.md)
-
-### Authorization
-
-[ApiKey](../../README.md#ApiKey), [OAuth2ClientCredentials](../../README.md#OAuth2ClientCredentials), [OAuth2Implicit](../../README.md#OAuth2Implicit), [Bearer](../../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `productBundlesGetProductBundlePersonalizationParameters()`
-
-```php
-productBundlesGetProductBundlePersonalizationParameters($id, $product_bundle_version_id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
-```
-
-Returns a product bundle personalization parameters by product identifier.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: ApiKey
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('X-API-Key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-Key', 'Bearer');
-
-// Configure OAuth2 access token for authorization: OAuth2ClientCredentials
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: OAuth2Implicit
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure API key authorization: Bearer
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
-
-
-$apiInstance = new Aurigma\Storefront\Api\ProductBundlesApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$id = 56; // int | Product bundle identifier.
-$product_bundle_version_id = 56; // int | Product bundle version identifier.
-$tenant_id = 56; // int | Tenant identifier.
-
-try {
-    $result = $apiInstance->productBundlesGetProductBundlePersonalizationParameters($id, $product_bundle_version_id, $tenant_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ProductBundlesApi->productBundlesGetProductBundlePersonalizationParameters: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | **int**| Product bundle identifier. | |
-| **product_bundle_version_id** | **int**| Product bundle version identifier. | [optional] |
-| **tenant_id** | **int**| Tenant identifier. | [optional] |
-
-### Return type
-
-[**\Aurigma\Storefront\Model\PersonalizationParametersDto**](../Model/PersonalizationParametersDto.md)
 
 ### Authorization
 

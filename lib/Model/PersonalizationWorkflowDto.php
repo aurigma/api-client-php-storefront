@@ -60,6 +60,8 @@ class PersonalizationWorkflowDto implements ModelInterface, ArrayAccess, \JsonSe
     protected static $openAPITypes = [
         'id' => 'int',
         'content' => 'string',
+        'attributes_content' => 'string',
+        'attributes' => 'string',
         'workflow_type' => '\Aurigma\Storefront\Model\WorkflowType'
     ];
 
@@ -73,6 +75,8 @@ class PersonalizationWorkflowDto implements ModelInterface, ArrayAccess, \JsonSe
     protected static $openAPIFormats = [
         'id' => 'int32',
         'content' => null,
+        'attributes_content' => null,
+        'attributes' => null,
         'workflow_type' => null
     ];
 
@@ -84,6 +88,8 @@ class PersonalizationWorkflowDto implements ModelInterface, ArrayAccess, \JsonSe
     protected static array $openAPINullables = [
         'id' => false,
         'content' => true,
+        'attributes_content' => true,
+        'attributes' => true,
         'workflow_type' => false
     ];
 
@@ -175,6 +181,8 @@ class PersonalizationWorkflowDto implements ModelInterface, ArrayAccess, \JsonSe
     protected static $attributeMap = [
         'id' => 'id',
         'content' => 'content',
+        'attributes_content' => 'attributesContent',
+        'attributes' => 'attributes',
         'workflow_type' => 'workflowType'
     ];
 
@@ -186,6 +194,8 @@ class PersonalizationWorkflowDto implements ModelInterface, ArrayAccess, \JsonSe
     protected static $setters = [
         'id' => 'setId',
         'content' => 'setContent',
+        'attributes_content' => 'setAttributesContent',
+        'attributes' => 'setAttributes',
         'workflow_type' => 'setWorkflowType'
     ];
 
@@ -197,6 +207,8 @@ class PersonalizationWorkflowDto implements ModelInterface, ArrayAccess, \JsonSe
     protected static $getters = [
         'id' => 'getId',
         'content' => 'getContent',
+        'attributes_content' => 'getAttributesContent',
+        'attributes' => 'getAttributes',
         'workflow_type' => 'getWorkflowType'
     ];
 
@@ -259,6 +271,8 @@ class PersonalizationWorkflowDto implements ModelInterface, ArrayAccess, \JsonSe
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('content', $data ?? [], null);
+        $this->setIfExists('attributes_content', $data ?? [], null);
+        $this->setIfExists('attributes', $data ?? [], null);
         $this->setIfExists('workflow_type', $data ?? [], null);
     }
 
@@ -361,6 +375,74 @@ class PersonalizationWorkflowDto implements ModelInterface, ArrayAccess, \JsonSe
             }
         }
         $this->container['content'] = $content;
+
+        return $this;
+    }
+
+    /**
+     * Gets attributes_content
+     *
+     * @return string|null
+     */
+    public function getAttributesContent()
+    {
+        return $this->container['attributes_content'];
+    }
+
+    /**
+     * Sets attributes_content
+     *
+     * @param string|null $attributes_content Workflow attributes JSON.
+     *
+     * @return self
+     */
+    public function setAttributesContent($attributes_content)
+    {
+        if (is_null($attributes_content)) {
+            array_push($this->openAPINullablesSetToNull, 'attributes_content');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('attributes_content', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['attributes_content'] = $attributes_content;
+
+        return $this;
+    }
+
+    /**
+     * Gets attributes
+     *
+     * @return string|null
+     */
+    public function getAttributes()
+    {
+        return $this->container['attributes'];
+    }
+
+    /**
+     * Sets attributes
+     *
+     * @param string|null $attributes Raw (unprocessed) workflow attributes JSON content.
+     *
+     * @return self
+     */
+    public function setAttributes($attributes)
+    {
+        if (is_null($attributes)) {
+            array_push($this->openAPINullablesSetToNull, 'attributes');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('attributes', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['attributes'] = $attributes;
 
         return $this;
     }

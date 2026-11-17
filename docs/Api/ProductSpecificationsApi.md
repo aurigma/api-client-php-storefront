@@ -6,8 +6,8 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | ------------- | ------------- | ------------- |
 | [**productSpecificationsGet()**](ProductSpecificationsApi.md#productSpecificationsGet) | **GET** /api/storefront/v1/product-specifications/{id} | Returns a product specification by identifier. |
 | [**productSpecificationsGetAll()**](ProductSpecificationsApi.md#productSpecificationsGetAll) | **GET** /api/storefront/v1/product-specifications | Returns all product specifications, relevant to the specified query parameters. |
+| [**productSpecificationsGetPersonalizationParameters()**](ProductSpecificationsApi.md#productSpecificationsGetPersonalizationParameters) | **GET** /api/storefront/v1/product-specifications/{id}/personalization-parameters | Returns a product specification personalization parameters by product identifier. |
 | [**productSpecificationsGetPersonalizationWorkflow()**](ProductSpecificationsApi.md#productSpecificationsGetPersonalizationWorkflow) | **GET** /api/storefront/v1/product-specifications/{id}/personalization-workflow | Returns a product personalization workflow description by product specification identifier. |
-| [**productSpecificationsGetProductSpecificationSummary()**](ProductSpecificationsApi.md#productSpecificationsGetProductSpecificationSummary) | **GET** /api/storefront/v1/product-specifications/{id}/personalization-parameters | Returns a product specification personalization parameters by product identifier. |
 
 
 ## `productSpecificationsGet()`
@@ -162,6 +162,79 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `productSpecificationsGetPersonalizationParameters()`
+
+```php
+productSpecificationsGetPersonalizationParameters($id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
+```
+
+Returns a product specification personalization parameters by product identifier.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: ApiKey
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('X-API-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-Key', 'Bearer');
+
+// Configure OAuth2 access token for authorization: OAuth2ClientCredentials
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure OAuth2 access token for authorization: OAuth2Implicit
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: Bearer
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+
+
+$apiInstance = new Aurigma\Storefront\Api\ProductSpecificationsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$id = 56; // int | Product specification identifier.
+$tenant_id = 56; // int | Tenant identifier.
+
+try {
+    $result = $apiInstance->productSpecificationsGetPersonalizationParameters($id, $tenant_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProductSpecificationsApi->productSpecificationsGetPersonalizationParameters: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **id** | **int**| Product specification identifier. | |
+| **tenant_id** | **int**| Tenant identifier. | [optional] |
+
+### Return type
+
+[**\Aurigma\Storefront\Model\PersonalizationParametersDto**](../Model/PersonalizationParametersDto.md)
+
+### Authorization
+
+[ApiKey](../../README.md#ApiKey), [OAuth2ClientCredentials](../../README.md#OAuth2ClientCredentials), [OAuth2Implicit](../../README.md#OAuth2Implicit), [Bearer](../../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `productSpecificationsGetPersonalizationWorkflow()`
 
 ```php
@@ -221,79 +294,6 @@ try {
 ### Return type
 
 [**\Aurigma\Storefront\Model\PersonalizationWorkflowDto**](../Model/PersonalizationWorkflowDto.md)
-
-### Authorization
-
-[ApiKey](../../README.md#ApiKey), [OAuth2ClientCredentials](../../README.md#OAuth2ClientCredentials), [OAuth2Implicit](../../README.md#OAuth2Implicit), [Bearer](../../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `productSpecificationsGetProductSpecificationSummary()`
-
-```php
-productSpecificationsGetProductSpecificationSummary($id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
-```
-
-Returns a product specification personalization parameters by product identifier.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: ApiKey
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('X-API-Key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-Key', 'Bearer');
-
-// Configure OAuth2 access token for authorization: OAuth2ClientCredentials
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: OAuth2Implicit
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure API key authorization: Bearer
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
-
-
-$apiInstance = new Aurigma\Storefront\Api\ProductSpecificationsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$id = 56; // int | Product specification identifier.
-$tenant_id = 56; // int | Tenant identifier.
-
-try {
-    $result = $apiInstance->productSpecificationsGetProductSpecificationSummary($id, $tenant_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ProductSpecificationsApi->productSpecificationsGetProductSpecificationSummary: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | **int**| Product specification identifier. | |
-| **tenant_id** | **int**| Tenant identifier. | [optional] |
-
-### Return type
-
-[**\Aurigma\Storefront\Model\PersonalizationParametersDto**](../Model/PersonalizationParametersDto.md)
 
 ### Authorization
 

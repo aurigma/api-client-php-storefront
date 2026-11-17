@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **product_filter_id** | **int** | Product filter identifier. | [optional]
 **image** | [**\Aurigma\Storefront\Model\ProductLinkDtoImage**](ProductLinkDtoImage.md) |  | [optional]
 **resources** | [**\Aurigma\Storefront\Model\ProductLinkResourceDto[]**](ProductLinkResourceDto.md) | Product link resources. | [optional]
+**attributes** | [**\Aurigma\Storefront\Model\ProductLinkAttributeDto[]**](ProductLinkAttributeDto.md) | List of product link attributes. | [optional]
 **created** | **\DateTime** | Product link creation time. | [optional]
 **last_modified** | **\DateTime** | Product link modification time. | [optional]
 **product_filter_options** | [**\Aurigma\Storefront\Model\ProductFilterOptionDto[]**](ProductFilterOptionDto.md) | Product filter options. | [optional]

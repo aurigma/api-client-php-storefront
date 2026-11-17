@@ -60,7 +60,7 @@ class ProductAttributeDto implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $openAPITypes = [
         'name' => 'string',
         'type' => 'string',
-        'value' => 'mixed'
+        'value' => 'string'
     ];
 
     /**
@@ -375,7 +375,7 @@ class ProductAttributeDto implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets value
      *
-     * @return mixed|null
+     * @return string|null
      */
     public function getValue()
     {
@@ -385,7 +385,7 @@ class ProductAttributeDto implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets value
      *
-     * @param mixed|null $value Product attribute value.
+     * @param string|null $value Product attribute value.
      *
      * @return self
      */

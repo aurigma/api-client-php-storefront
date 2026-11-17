@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **tenant_id** | **int** | Tenant identifier. | [optional]
 **name** | **string** | Product specification name. | [optional]
 **description** | **string** | Product specification description. | [optional]
-**product_attributes** | [**\Aurigma\Storefront\Model\ProductAttributeDto[]**](ProductAttributeDto.md) | List of product attributes. | [optional]
+**attributes** | [**\Aurigma\Storefront\Model\ProductSpecificationAttributeDto[]**](ProductSpecificationAttributeDto.md) | List of product attributes. | [optional]
 **created** | **\DateTime** | Product specification creation time. | [optional]
 **last_modified** | **\DateTime** | Product specification modification time. | [optional]
 **personalization_workflow_id** | **int** | Personalization workflow identifier. | [optional]

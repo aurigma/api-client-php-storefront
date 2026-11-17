@@ -5,9 +5,9 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**productLinksGetAllProductLinks()**](ProductLinksApi.md#productLinksGetAllProductLinks) | **GET** /api/storefront/v1/product-links | Returns all product links, relevant to the specified query parameters. |
+| [**productLinksGetPersonalizationParameters()**](ProductLinksApi.md#productLinksGetPersonalizationParameters) | **GET** /api/storefront/v1/product-links/{id}/personalization-parameters | Returns a product link personalization parameters by product identifier. |
 | [**productLinksGetPersonalizationWorkflow()**](ProductLinksApi.md#productLinksGetPersonalizationWorkflow) | **GET** /api/storefront/v1/product-links/{id}/personalization-workflow | Returns a product link personalization workflow description by product link identifier. |
 | [**productLinksGetProductLink()**](ProductLinksApi.md#productLinksGetProductLink) | **GET** /api/storefront/v1/product-links/{id} | Returns a product link by its identifier. |
-| [**productLinksGetProductLinkPersonalizationParameters()**](ProductLinksApi.md#productLinksGetProductLinkPersonalizationParameters) | **GET** /api/storefront/v1/product-links/{id}/personalization-parameters | Returns a product link personalization parameters by product identifier. |
 | [**productLinksGetProductSummary()**](ProductLinksApi.md#productLinksGetProductSummary) | **GET** /api/storefront/v1/product-links/{id}/summary | Returns a product link summary by product link identifier. |
 
 
@@ -76,6 +76,81 @@ try {
 ### Return type
 
 [**\Aurigma\Storefront\Model\PagedOfProductLinkDto**](../Model/PagedOfProductLinkDto.md)
+
+### Authorization
+
+[ApiKey](../../README.md#ApiKey), [OAuth2ClientCredentials](../../README.md#OAuth2ClientCredentials), [OAuth2Implicit](../../README.md#OAuth2Implicit), [Bearer](../../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `productLinksGetPersonalizationParameters()`
+
+```php
+productLinksGetPersonalizationParameters($id, $product_link_version_id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
+```
+
+Returns a product link personalization parameters by product identifier.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: ApiKey
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('X-API-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-Key', 'Bearer');
+
+// Configure OAuth2 access token for authorization: OAuth2ClientCredentials
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure OAuth2 access token for authorization: OAuth2Implicit
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: Bearer
+$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+
+
+$apiInstance = new Aurigma\Storefront\Api\ProductLinksApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$id = 56; // int | Product link identifier.
+$product_link_version_id = 56; // int | Product link version identifier.
+$tenant_id = 56; // int | Tenant identifier.
+
+try {
+    $result = $apiInstance->productLinksGetPersonalizationParameters($id, $product_link_version_id, $tenant_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProductLinksApi->productLinksGetPersonalizationParameters: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **id** | **int**| Product link identifier. | |
+| **product_link_version_id** | **int**| Product link version identifier. | [optional] |
+| **tenant_id** | **int**| Tenant identifier. | [optional] |
+
+### Return type
+
+[**\Aurigma\Storefront\Model\PersonalizationParametersDto**](../Model/PersonalizationParametersDto.md)
 
 ### Authorization
 
@@ -232,81 +307,6 @@ try {
 ### Return type
 
 [**\Aurigma\Storefront\Model\ProductLinkDto**](../Model/ProductLinkDto.md)
-
-### Authorization
-
-[ApiKey](../../README.md#ApiKey), [OAuth2ClientCredentials](../../README.md#OAuth2ClientCredentials), [OAuth2Implicit](../../README.md#OAuth2Implicit), [Bearer](../../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `productLinksGetProductLinkPersonalizationParameters()`
-
-```php
-productLinksGetProductLinkPersonalizationParameters($id, $product_link_version_id, $tenant_id): \Aurigma\Storefront\Model\PersonalizationParametersDto
-```
-
-Returns a product link personalization parameters by product identifier.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: ApiKey
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('X-API-Key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-API-Key', 'Bearer');
-
-// Configure OAuth2 access token for authorization: OAuth2ClientCredentials
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: OAuth2Implicit
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure API key authorization: Bearer
-$config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Aurigma\Storefront\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
-
-
-$apiInstance = new Aurigma\Storefront\Api\ProductLinksApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$id = 56; // int | Product link identifier.
-$product_link_version_id = 56; // int | Product link version identifier.
-$tenant_id = 56; // int | Tenant identifier.
-
-try {
-    $result = $apiInstance->productLinksGetProductLinkPersonalizationParameters($id, $product_link_version_id, $tenant_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ProductLinksApi->productLinksGetProductLinkPersonalizationParameters: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | **int**| Product link identifier. | |
-| **product_link_version_id** | **int**| Product link version identifier. | [optional] |
-| **tenant_id** | **int**| Tenant identifier. | [optional] |
-
-### Return type
-
-[**\Aurigma\Storefront\Model\PersonalizationParametersDto**](../Model/PersonalizationParametersDto.md)
 
 ### Authorization
 

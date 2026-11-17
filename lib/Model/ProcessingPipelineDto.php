@@ -60,7 +60,8 @@ class ProcessingPipelineDto implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $openAPITypes = [
         'id' => 'int',
         'name' => 'string',
-        'raw_content' => 'string'
+        'raw_content' => 'string',
+        'attributes_content' => 'string'
     ];
 
     /**
@@ -73,7 +74,8 @@ class ProcessingPipelineDto implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $openAPIFormats = [
         'id' => 'int32',
         'name' => null,
-        'raw_content' => null
+        'raw_content' => null,
+        'attributes_content' => null
     ];
 
     /**
@@ -84,7 +86,8 @@ class ProcessingPipelineDto implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static array $openAPINullables = [
         'id' => false,
         'name' => true,
-        'raw_content' => true
+        'raw_content' => true,
+        'attributes_content' => true
     ];
 
     /**
@@ -175,7 +178,8 @@ class ProcessingPipelineDto implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $attributeMap = [
         'id' => 'id',
         'name' => 'name',
-        'raw_content' => 'rawContent'
+        'raw_content' => 'rawContent',
+        'attributes_content' => 'attributesContent'
     ];
 
     /**
@@ -186,7 +190,8 @@ class ProcessingPipelineDto implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $setters = [
         'id' => 'setId',
         'name' => 'setName',
-        'raw_content' => 'setRawContent'
+        'raw_content' => 'setRawContent',
+        'attributes_content' => 'setAttributesContent'
     ];
 
     /**
@@ -197,7 +202,8 @@ class ProcessingPipelineDto implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $getters = [
         'id' => 'getId',
         'name' => 'getName',
-        'raw_content' => 'getRawContent'
+        'raw_content' => 'getRawContent',
+        'attributes_content' => 'getAttributesContent'
     ];
 
     /**
@@ -260,6 +266,7 @@ class ProcessingPipelineDto implements ModelInterface, ArrayAccess, \JsonSeriali
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('raw_content', $data ?? [], null);
+        $this->setIfExists('attributes_content', $data ?? [], null);
     }
 
     /**
@@ -395,6 +402,40 @@ class ProcessingPipelineDto implements ModelInterface, ArrayAccess, \JsonSeriali
             }
         }
         $this->container['raw_content'] = $raw_content;
+
+        return $this;
+    }
+
+    /**
+     * Gets attributes_content
+     *
+     * @return string|null
+     */
+    public function getAttributesContent()
+    {
+        return $this->container['attributes_content'];
+    }
+
+    /**
+     * Sets attributes_content
+     *
+     * @param string|null $attributes_content Processing pipeline attributes JSON content.
+     *
+     * @return self
+     */
+    public function setAttributesContent($attributes_content)
+    {
+        if (is_null($attributes_content)) {
+            array_push($this->openAPINullablesSetToNull, 'attributes_content');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('attributes_content', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['attributes_content'] = $attributes_content;
 
         return $this;
     }

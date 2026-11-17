@@ -16,5 +16,6 @@ Name | Type | Description | Notes
 **workflow_elements_url** | **string** | Link to Workflow Elements bundle. | [optional]
 **workflow_type** | [**\Aurigma\Storefront\Model\WorkflowType**](WorkflowType.md) | Personalization workflow type. | [optional]
 **workflow_content** | **string** | Serialized content of compiled personalization workflow. | [optional]
+**attributes** | [**\Aurigma\Storefront\Model\PersonalizationAttributeDto[]**](PersonalizationAttributeDto.md) | List of product attributes. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

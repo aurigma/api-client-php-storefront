@@ -53,10 +53,12 @@ docs/Model/PagedOfProjectStatusDto.md
 docs/Model/PagedOfProjectStatusTransitionDto.md
 docs/Model/PagedOfStorefrontDto.md
 docs/Model/PagedOfStorefrontUserDto.md
+docs/Model/PersonalizationAttributeDto.md
 docs/Model/PersonalizationParametersDto.md
 docs/Model/PersonalizationWorkflowDto.md
 docs/Model/ProcessingPipelineDto.md
 docs/Model/ProductAttributeDto.md
+docs/Model/ProductBundleAttributeDto.md
 docs/Model/ProductBundleDto.md
 docs/Model/ProductBundleDtoImage.md
 docs/Model/ProductBundleItemDto.md
@@ -66,6 +68,7 @@ docs/Model/ProductBundleResourceType.md
 docs/Model/ProductCostDetailsDto.md
 docs/Model/ProductDto.md
 docs/Model/ProductFilterOptionDto.md
+docs/Model/ProductLinkAttributeDto.md
 docs/Model/ProductLinkDto.md
 docs/Model/ProductLinkDtoImage.md
 docs/Model/ProductLinkResourceDto.md
@@ -78,6 +81,7 @@ docs/Model/ProductOptionValueDtoImage.md
 docs/Model/ProductOptionValueDtoSimpleOptionValue.md
 docs/Model/ProductReferenceDto.md
 docs/Model/ProductReferenceType.md
+docs/Model/ProductSpecificationAttributeDto.md
 docs/Model/ProductSpecificationDto.md
 docs/Model/ProductSummaryDto.md
 docs/Model/ProductSummaryDtoImage.md
@@ -194,10 +198,12 @@ lib/Model/PagedOfProjectStatusDto.php
 lib/Model/PagedOfProjectStatusTransitionDto.php
 lib/Model/PagedOfStorefrontDto.php
 lib/Model/PagedOfStorefrontUserDto.php
+lib/Model/PersonalizationAttributeDto.php
 lib/Model/PersonalizationParametersDto.php
 lib/Model/PersonalizationWorkflowDto.php
 lib/Model/ProcessingPipelineDto.php
 lib/Model/ProductAttributeDto.php
+lib/Model/ProductBundleAttributeDto.php
 lib/Model/ProductBundleDto.php
 lib/Model/ProductBundleDtoImage.php
 lib/Model/ProductBundleItemDto.php
@@ -207,6 +213,7 @@ lib/Model/ProductBundleResourceType.php
 lib/Model/ProductCostDetailsDto.php
 lib/Model/ProductDto.php
 lib/Model/ProductFilterOptionDto.php
+lib/Model/ProductLinkAttributeDto.php
 lib/Model/ProductLinkDto.php
 lib/Model/ProductLinkDtoImage.php
 lib/Model/ProductLinkResourceDto.php
@@ -219,6 +226,7 @@ lib/Model/ProductOptionValueDtoImage.php
 lib/Model/ProductOptionValueDtoSimpleOptionValue.php
 lib/Model/ProductReferenceDto.php
 lib/Model/ProductReferenceType.php
+lib/Model/ProductSpecificationAttributeDto.php
 lib/Model/ProductSpecificationDto.php
 lib/Model/ProductSummaryDto.php
 lib/Model/ProductSummaryDtoImage.php

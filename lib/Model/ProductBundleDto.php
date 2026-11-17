@@ -69,7 +69,8 @@ class ProductBundleDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom_fields' => 'array<string,string>',
         'image' => '\Aurigma\Storefront\Model\ProductBundleDtoImage',
         'items' => '\Aurigma\Storefront\Model\ProductBundleItemDto[]',
-        'resources' => '\Aurigma\Storefront\Model\ProductBundleResourceDto[]'
+        'resources' => '\Aurigma\Storefront\Model\ProductBundleResourceDto[]',
+        'attributes' => '\Aurigma\Storefront\Model\ProductBundleAttributeDto[]'
     ];
 
     /**
@@ -91,7 +92,8 @@ class ProductBundleDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom_fields' => null,
         'image' => null,
         'items' => null,
-        'resources' => null
+        'resources' => null,
+        'attributes' => null
     ];
 
     /**
@@ -111,7 +113,8 @@ class ProductBundleDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom_fields' => true,
         'image' => true,
         'items' => true,
-        'resources' => true
+        'resources' => true,
+        'attributes' => true
     ];
 
     /**
@@ -211,7 +214,8 @@ class ProductBundleDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom_fields' => 'customFields',
         'image' => 'image',
         'items' => 'items',
-        'resources' => 'resources'
+        'resources' => 'resources',
+        'attributes' => 'attributes'
     ];
 
     /**
@@ -231,7 +235,8 @@ class ProductBundleDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom_fields' => 'setCustomFields',
         'image' => 'setImage',
         'items' => 'setItems',
-        'resources' => 'setResources'
+        'resources' => 'setResources',
+        'attributes' => 'setAttributes'
     ];
 
     /**
@@ -251,7 +256,8 @@ class ProductBundleDto implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom_fields' => 'getCustomFields',
         'image' => 'getImage',
         'items' => 'getItems',
-        'resources' => 'getResources'
+        'resources' => 'getResources',
+        'attributes' => 'getAttributes'
     ];
 
     /**
@@ -323,6 +329,7 @@ class ProductBundleDto implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('image', $data ?? [], null);
         $this->setIfExists('items', $data ?? [], null);
         $this->setIfExists('resources', $data ?? [], null);
+        $this->setIfExists('attributes', $data ?? [], null);
     }
 
     /**
@@ -743,6 +750,40 @@ class ProductBundleDto implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['resources'] = $resources;
+
+        return $this;
+    }
+
+    /**
+     * Gets attributes
+     *
+     * @return \Aurigma\Storefront\Model\ProductBundleAttributeDto[]|null
+     */
+    public function getAttributes()
+    {
+        return $this->container['attributes'];
+    }
+
+    /**
+     * Sets attributes
+     *
+     * @param \Aurigma\Storefront\Model\ProductBundleAttributeDto[]|null $attributes List of product bundle attributes.
+     *
+     * @return self
+     */
+    public function setAttributes($attributes)
+    {
+        if (is_null($attributes)) {
+            array_push($this->openAPINullablesSetToNull, 'attributes');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('attributes', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['attributes'] = $attributes;
 
         return $this;
     }
